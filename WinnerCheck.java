@@ -24,33 +24,6 @@ public class WinnerCheck {
         int columnOfLastMove = 0;
         int rowOfLastMove = 0;
     }
-
-    /**
-     * this method calculates the row of the last move
-     * @param b- the 2d array with the information about the board
-     */
-    public void getRowOfLastMove(Space[][] b){
-        int r = 1;
-        boolean lastFound = false;
-        /*
-         * every row is checked to see what color is stored in the Space object. when the loop finds a Space
-         * with 0 stored as the color, it knows that all the spaces are occupied. therefore the top occupied
-         * space(row of first empty space -1) must be the last piece played, because we know it was in that column,
-         * and that is the last piece played in that column
-         */
-        //with
-        while(r <= 5 && lastFound == false){
-            if(b[r][columnOfLastMove].getColor() == 0){
-                rowOfLastMove = r - 1;
-                lastFound = true;
-            }
-            r += 1;
-        }
-        //if there are no empty spaces, then the entire column is full, and the last placed piece must be the top row
-        if(lastFound == false) {
-            rowOfLastMove = 5;
-        }
-    }
     /**
      * The big method which checks for any winning combinations. Since we know the space of the last placed piece
      * (using the method above) and if four pieces were made to be in a row this turn, the last placed piece would
@@ -166,7 +139,8 @@ public class WinnerCheck {
      * mutator method for the column of the last move
      * @param c- the integer representing the column of the last move
      */
-    public void setColumnOfLastMove(int c){
+    public void setLocationOfLastMove(int r, int c){
+        rowOfLastMove = r;
         columnOfLastMove = c;
     }
 }
