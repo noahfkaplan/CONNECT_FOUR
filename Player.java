@@ -4,6 +4,8 @@
 import java.util.*;
 public class Player {
     private int color;
+    private int columnOfLastMove;
+    private int rowOfLastMove;
     public Player(int co){
         color = co;
     }
@@ -18,6 +20,8 @@ public class Player {
             takeTurn(b);
         }
         else {
+            columnOfLastMove = column;
+            rowOfLastMove = row;
             grid[row][column].setColor(color);
             b.setGrid(grid);
         }
@@ -26,4 +30,11 @@ public class Player {
     public int getColor(){
         return color;
     }
+    public int getColumnOfLastMove(){
+        return columnOfLastMove;
+    }
+    public int getRowOfLastMove(){
+        return rowOfLastMove;
+    }
 }
+
