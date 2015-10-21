@@ -14,11 +14,13 @@ public class Driver {
             if (turnNumber % 2 == 1) {
                 b = p1.takeTurn(b);
                 GUI.setGrid(b.getGrid());
+                check.setLocationOfLastMove(p1.getRowOfLastMove(),p1.getColumnOfLastMove());
                 check.checkWinner(b.getGrid(), 1);
             }
             else {
                 b = p2.takeTurn(b);
                 GUI.setGrid(b.getGrid());
+                check.setLocationOfLastMove(p2.getRowOfLastMove(),p2.getColumnOfLastMove());
                 check.checkWinner(b.getGrid(), p2.getColor());
             }
             if (b.checkFull() == true || check.getGameWon() == true) {
@@ -28,6 +30,9 @@ public class Driver {
         }
         if(check.getGameWon() == true){
             System.out.println("Player " + check.getColorOfWinner() + " wins");
+        }
+        else{
+            System.out.println("The board was filled with no winner");
         }
     }
 }
