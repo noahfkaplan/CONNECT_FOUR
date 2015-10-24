@@ -36,14 +36,6 @@ public class Board {
         //if none of the space objects had the color 0, the board is full, and true is returned
         return true;
     }
-    public int checkColumnFull(int column){
-        for(int r = 0; r <= 5; r++){
-            if(grid[r][column].getColor() == 0) {
-                return r;
-            }
-        }
-        return -1;
-    }
     /**
      * accessor method for the 2d array of space objects
      * @return grid-the 2d array of space objects which stores the board components
@@ -59,5 +51,18 @@ public class Board {
      */
     public void setGrid(Space[][] g){
         grid = g;
+    }
+
+    /**
+     * accessor method that returns the color of a space of a specified row and column
+     * @param r the row of the space to be checked
+     * @param c the column of the space to be checked
+     * @return an integer of the color (0=empty, 1=red, 2=black) of the space
+     */
+    public int getColor(int r, int c){
+        return grid[r][c].getColor();
+    }
+    public void setSpace(int r, int c, int co){
+        grid[r][c].setColor(co);
     }
 }
