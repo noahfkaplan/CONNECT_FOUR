@@ -4,37 +4,25 @@
 import java.util.*;
 public class Player {
     private int color;
-    private int columnOfLastMove;
-    private int rowOfLastMove;
     public Player(int co){
         color = co;
     }
-    public Board takeTurn(Board b){
-        System.out.print("Player " + color + " select a column: ");
-        Space grid[][] = b.getGrid();
-        Scanner input = new Scanner(System.in);
-        int column = input.nextInt() - 1;
-        int row = b.checkColumnFull(column);
-        if(row == -1) {
-            System.out.println("That column is full, Try Again");
-            takeTurn(b);
+    public void addPiece(int column){
+        if(TurnControl.b.getColor(5,column) == 0) {
+            for (int row = 0; row < 6; row++) {
+                if (TurnControl.b.getColor(row, column) == 0) {
+                    TurnControl.b.setSpace(row, column, color);
+                    TurnControl.check.setLocationOfLastMove(row, column);
+                    row = 6;
+                }
+            }
         }
-        else {
-            columnOfLastMove = column;
-            rowOfLastMove = row;
-            grid[row][column].setColor(color);
-            b.setGrid(grid);
+        else{
+            TurnControl.turnNumber--;
         }
-        return b;
+
     }
     public int getColor(){
         return color;
     }
-    public int getColumnOfLastMove(){
-        return columnOfLastMove;
-    }
-    public int getRowOfLastMove(){
-        return rowOfLastMove;
-    }
 }
-
