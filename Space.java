@@ -1,3 +1,4 @@
+
 /**
  * Created by Noah on 10/19/2015.
  */
@@ -25,8 +26,12 @@ public class Space {
     public int getColor(){
         return color;
     }
+
+    /**
+     * mutator method for setting the color of the space
+     * @param co the color for the space to be changed to
+     */
     public void setColor(int co){
         color = co;
     }
-
 }
