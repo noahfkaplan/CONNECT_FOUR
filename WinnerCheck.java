@@ -11,11 +11,11 @@ public class WinnerCheck {
     /**
      * constructor method for the WinnerCheck object
      */
-    public WinnerCheck(){
+    public WinnerCheck(int colorOfLastWinner){
         //this object is created before any player moves, so the game cannot be won when it is created
         gameWon = false;
         //the colorOfWinner is set to nobody's color
-        colorOfWinner = 0;
+        colorOfWinner = colorOfLastWinner;
         /*
          *the columnOfLastMove field is set as soon as the first move occurs. the player class stores
          *that information, and then using the mutator class setColumnOfLastMove(), the data is sent to this
