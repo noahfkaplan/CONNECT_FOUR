@@ -1,28 +1,28 @@
-/*
- * Created by Noah on 9/12/2015.
- */
+/**
+  * The class definition file for winner check. there is no constructor, because this class is not used to make
+  * object, but rather to be full of static methods and fields like gameWon (tells if the game has been won,
+  * colorOfWinner(the integer representing the color of the winner) columnOfLastMove and rowOfLastMove
+  * @author Noah Kaplan
+  * @version 2.2
+  */
 public class WinnerCheck {
     //the fields of a WinnerCheck object
-    private boolean gameWon;
-    private int colorOfWinner;
-    private int columnOfLastMove;
-    private int rowOfLastMove;
+    public static boolean gameWon;
+    public static int colorOfWinner;
+    public static int columnOfLastMove;
+    public static int rowOfLastMove;
 
     /**
-     * constructor method for the WinnerCheck object
+     * a method for reseting all the fields. except colorOfWinner. it cant be reset because these fields need
+     * to be reset in the turn control class before the FinishStatement window is created, and one of the parameters
+     * for the FinishStatement constructor requires the name of the winner, which requires the color of the winner.
+     * so instead, the last winners color remains the colorOfWinner until a new 4 in a row is made, and then it is changed
+     * then.
      */
-    public WinnerCheck(int colorOfLastWinner){
-        //this object is created before any player moves, so the game cannot be won when it is created
+    public static void reset(){
         gameWon = false;
-        //the colorOfWinner is set to nobody's color
-        colorOfWinner = colorOfLastWinner;
-        /*
-         *the columnOfLastMove field is set as soon as the first move occurs. the player class stores
-         *that information, and then using the mutator class setColumnOfLastMove(), the data is sent to this
-         *class
-         */
-        int columnOfLastMove = 0;
-        int rowOfLastMove = 0;
+        columnOfLastMove = 0;
+        rowOfLastMove = 0;
     }
     /**
      * The big method which checks for any winning combinations. Since we know the space of the last placed piece
@@ -30,10 +30,10 @@ public class WinnerCheck {
      * have to be one of the four, we can check the row of the last placed piece, the column of the last placed
      * placed piece, and the positive slope and negative slope diagonals of the last placed piece, and if four in
      * a row have the same color, that player is the winner
-     *@param b- the 2d array with all the information about the board
-     *@param color- the integer representing the color of the last person to move
+     * @param b- the 2d array with all the information about the board
+     * @param color- the integer representing the color of the last person to move
      */
-    public void checkWinner(Space[][] b, int color){
+    public static void checkWinner(Space[][] b, int color){
         int inARow = 0;
         //for checking horizontal wins
         for(int c = 0; c <= 6; c++){
@@ -76,9 +76,11 @@ public class WinnerCheck {
          * placed piece because that would mean the newest piece was added at the very end of a run of 3 pieces.
          */
         for(int d = -3; d <= 3; d++){
-            //we need to check that plugging in the values of diagonal points will not be outside the bounds of the
-            //array, so before any values are checked, it is ensured that the values of the pieces being checked are
-            //real values of the array. 0<row<6 and 0<column<7
+            /*
+             * we need to check that plugging in the values of diagonal points will not be outside the bounds of the
+             * array, so before any values are checked, it is ensured that the values of the pieces being checked are
+             * real values of the array. 0<row<6 and 0<column<7
+             */
             if((rowOfLastMove + d <= 5) && (rowOfLastMove + d >= 0)&&(columnOfLastMove + d >= 0) && (columnOfLastMove + d <= 6)){
                 if(b[rowOfLastMove + d][columnOfLastMove + d].getColor() == color){
                     inARow += 1;
@@ -99,11 +101,13 @@ public class WinnerCheck {
          * placed piece because that would mean the newest piece was added at the very end of a run of 3 pieces.
          */
         for(int d = -3; d <= 3; d++){
-            //we need to check that plugging in the values of diagonal points will not be outside the bounds of the
-            //array, so before any values are checked, it is ensured that the values of the pieces being checked are
-            //real values of the array. 0<row<6 and 0<column<7
-            //note: the opposite of d is added to the column value of the last piece, because the slope of this diagonal
-            //is negative
+            /*
+             * we need to check that plugging in the values of diagonal points will not be outside the bounds of the
+             * array, so before any values are checked, it is ensured that the values of the pieces being checked are
+             * real values of the array. 0<row<6 and 0<column<7
+             * note: the opposite of d is added to the column value of the last piece, because the slope of this diagonal
+             * is negative
+             */
             if((rowOfLastMove + d <= 5) && (rowOfLastMove + d >= 0)&&(columnOfLastMove - d >= 0) && (columnOfLastMove - d <= 6)){
                 if(b[rowOfLastMove + d][columnOfLastMove - d].getColor() == color){
                     inARow += 1;
@@ -118,29 +122,5 @@ public class WinnerCheck {
             }
         }
     }
-
-    /**
-     * accessor method for if the game has been won
-     * @return gameWon-boolean(true:the game has been won False: the game has not been won)
-     */
-    public boolean getGameWon(){
-        return gameWon;
-    }
-
-    /**
-     * accessor method for the color of the winner
-     * @return colorOfWinner- the integer value representing the winner's color
-     */
-    public int getColorOfWinner(){
-        return colorOfWinner;
-    }
-
-    /**
-     * mutator method for the column of the last move
-     * @param c- the integer representing the column of the last move
-     */
-    public void setLocationOfLastMove(int r, int c){
-        rowOfLastMove = r;
-        columnOfLastMove = c;
-    }
 }
+
