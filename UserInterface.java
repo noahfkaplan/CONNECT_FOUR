@@ -1,10 +1,14 @@
-/**
- * Created by Noah on 9/13/2015.
- */
+//importing the necessary packages
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * this class creates the user interface. the board that shows us where the data is stored in the grid. data is added
+ * to the board through the use of the JButtons that form the grid
+ * @author Noah Kaplan
+ * @version 2.2
+ */
 public class UserInterface extends JFrame{
     //the only field of my interface class is a 2d array of jbuttons which will act as the pieces on the board
     private JButton[][] buttonGrid;
@@ -12,38 +16,40 @@ public class UserInterface extends JFrame{
     private Color player1;
     private Color player2;
     /**
-     * constructor method for the interface
+     * overloaded constructor method for the interface
+     * @param p1-the color of player 1
+     * @param p2- the color of player 2
      */
     public UserInterface(Color p1,Color p2){
-        super("Connect Four");
-        player1 = p1;
-        player2 = p2;
-        //setting the layout to a grid 6 tall and 7 wide
-        setLayout(new GridLayout(6,7));
-        //setting the width and height of the window
+        //setting up the window
+        super("Connect Four-GameInterface");
         final int WINDOW_WIDTH = 683;
         final int WINDOW_HEIGHT = 768;
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setting the Color object fields to the color that is taken as parameters
+        player1 = p1;
+        player2 = p2;
+        //setting the layout to a grid 6 tall and 7 wide
+        setLayout(new GridLayout(6, 7));
         //making the 2d array of buttons 6 tall and 7 wide
         buttonGrid = new JButton[6][7];
         panelGrid = new JPanel[6][7];
         //creating and adding the buttons to the interface
         for(int r = 5; r >= 0; r--) {
             for (int c = 0; c <= 6; c++) {
-                JLabel columnLabel = new JLabel();
+                //creating a panel to put each button on
                 JPanel panel = new JPanel();
                 panel.setBackground(Color.YELLOW);
+                //creating the buttons
                 JButton button = new JButton("");
                 button.setBackground(Color.WHITE);
                 button.setPreferredSize(new Dimension(60, 60));
                 button.addActionListener(new ButtonListener());
-                //putting the number that needs to be inputted in the bottom button of each column
-                if(r == 0){
-                    button.setText(""+ (c+1));
-                }
+                //adding the buttons and panels to the arrays
                 buttonGrid[r][c] = button;
                 panelGrid[r][c] = panel;
+                //adding the panels to the window, and adding the buttons to the panels
                 add(panel);
                 panel.add(button);
             }
@@ -69,18 +75,26 @@ public class UserInterface extends JFrame{
             }
         }
     }
+
+    /**
+     * the class that listens to all the buttons in the window
+     */
     private class ButtonListener implements ActionListener {
         public void actionPerformed (ActionEvent e){
-            //Execute when button is pressed
+            //checks all the buttons to see  which one called this method
             for(int r = 0; r < 6; r++) {
                 for (int c = 0; c < 7; c++) {
-                    if(e.getSource() == buttonGrid[r][c] && TurnControl.b.getColor(r,c)==0 && TurnControl.gameOver == false){
+                    /*
+                     * if the button that called the method represents an empty space and the game is not over,
+                     * call the step method in the turn control class, which checks to make sure it is a valid
+                     * move, checks to see if there is a winner, and proceed based on that information
+                     */
+                    if(e.getSource() == buttonGrid[r][c] && TurnControl.b.getColor(r,c)==0 && WinnerCheck.gameWon == false){
                         TurnControl.step(c);
                     }
                 }
             }
-
-
         }
     }
 }
+

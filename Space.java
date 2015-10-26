@@ -1,8 +1,11 @@
-
 /**
- * Created by Noah on 10/19/2015.
+ * This is the class definition file for space object. A space object has a row, column and (int)color field
+ * the only methods for this class allow space objects colors to be set and accessed
+ * @author Noah Kaplan
+ * @version 2.2
  */
 public class Space {
+    //the fields of a space object
     private int row;
     private int column;
     private int color;
