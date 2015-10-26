@@ -1,5 +1,8 @@
 /**
- * Created by Noah on 9/11/2015.
+ * this class creates the board object which creates the 2d array where the data will be stored
+ * and is able to modify the data
+ * @author Noah Kaplan
+ * @version 2.2
  */
 public class Board {
     //the only field of the Board object is the 2d array filled with Space objects
@@ -43,16 +46,6 @@ public class Board {
     public Space[][] getGrid(){
         return grid;
     }
-
-    /**
-     * mutator method for changing the grid. the 2d array is changed outside the class, and then the new 2d
-     * array is returned and stored as "grid"
-     * @param g-takes in a 2d array, and sets the grid equal to the data found in the imported array
-     */
-    public void setGrid(Space[][] g){
-        grid = g;
-    }
-
     /**
      * accessor method that returns the color of a space of a specified row and column
      * @param r the row of the space to be checked
@@ -62,7 +55,14 @@ public class Board {
     public int getColor(int r, int c){
         return grid[r][c].getColor();
     }
+    /**
+     * mutator method for any space in the grid.
+     * @param r the row of the piece to be changed
+     * @param c the column of the piece to be changed
+     * @param co the color the piece will be changed to
+     */
     public void setSpace(int r, int c, int co){
         grid[r][c].setColor(co);
     }
 }
+
